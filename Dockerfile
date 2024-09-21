@@ -1,5 +1,5 @@
 # Base image
-FROM node:16-alpine
+FROM node:16-alpine AS build
 
 # Set working directory
 WORKDIR /app
@@ -18,7 +18,7 @@ RUN npm run build
 
 # Use nginx to serve the built app
 FROM nginx:alpine
-COPY --from=0 /app/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
 # Expose the default nginx port
 EXPOSE 80
