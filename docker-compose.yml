@@ -30,7 +30,7 @@ services:
       - mongo-data:/data/db
     networks:
       - techdome-network
-    container_name: techdome-frontend
+    container_name: mongodb
 
 volumes:
   mongo-data:
