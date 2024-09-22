@@ -1,24 +1,24 @@
 # Base image
 FROM node:16-alpine AS build
 
-# Set working directory
+# Set working dir
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy yje required packages
 COPY package*.json ./
 
-# Install dependencies
+# Install the required dependencies
 RUN npm install
 
-# Copy the rest of the application files
+# Copy the application files
 COPY . .
 
-# Build the frontend application (assuming it's a React app)
+# Build the frontend application
 RUN npm run build
 
-# Use nginx to serve the built app
+# Use nginx to serve the traffic and copy the built image from the first stage
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose the default nginx port
+# Expose the port
 EXPOSE 80
